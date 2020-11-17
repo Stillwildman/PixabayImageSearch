@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ImageSearch</string>
+
+    <!-- Menu Options -->
+    <string name="action_grid_view">Grid View</string>
+    <string name="action_list_view">List View</string>
+
+    <!-- Common -->
+    <string name="confirm_to_exit">Tap \'Back\' again to exit the app.</string>
+    <string name="input_enter_search_key_words">Enter search key words.</string>
+    <string name="loading">LOADING…</string>
+
+    <!-- API -->
+    <string name="pixabay_api_encrypted_key">rr/dCSQCVGCToWE1j91XCDGEgulCg5f94biyBzY4nzWEh/wHXmI2YTtm66XXzIpo</string>
+
+    <!-- Image -->
+    <string name="image_type_photo">Photo</string>
+    <string name="image_type_illustration">Illustration</string>
+    <string name="image_type_vector">Vector</string>
+
+</resources>
