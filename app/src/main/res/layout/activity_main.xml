@@ -1,41 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.UiMainActivity">
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.ImageSearch.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.ImageSearch.PopupOverlay" >
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <ProgressBar
+                android:id="@+id/loadingCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/font_text_size_l"
+                android:layout_marginStart="@dimen/padding_size_m"
+                android:visibility="gone"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.UiMainActivity">
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Theme.ImageSearch.PopupOverlay" >
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.ImageSearch.AppBarOverlay">
 
-                <ProgressBar
-                    android:id="@+id/loadingCircle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/font_text_size_l"
-                    android:layout_marginStart="@dimen/padding_size_m"
-                    android:visibility="gone"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/padding_size_xxl"
+                    android:paddingEnd="@dimen/padding_size_l"
+                    app:layout_scrollFlags="scroll|enterAlways">
 
-            </androidx.appcompat.widget.Toolbar>
+                    <com.vincent.imagesearch.widgets.SearchInputWidget
+                        android:id="@+id/edit_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="@dimen/padding_size_m"
+                        android:paddingEnd="@dimen/padding_size_m"
+                        android:paddingTop="@dimen/padding_size_xl"
+                        android:paddingBottom="@dimen/padding_size_xl"
+                        android:textSize="@dimen/font_text_size_m"
+                        android:hint="@string/input_enter_search_key_words"
+                        android:maxLength="100"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch"
+                        android:completionThreshold="1" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/button_search"
+                        android:layout_width="@dimen/icon_common_size"
+                        android:layout_height="@dimen/icon_common_size"
+                        android:background="?selectableItemBackground"
+                        app:srcCompat="@drawable/selector_search"/>
 
-        <include
-            android:id="@+id/include_content"
-            layout="@layout/include_main_content" />
+                </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <include
+                android:id="@+id/include_content"
+                layout="@layout/include_main_content" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
 
 </layout>

@@ -28,7 +28,7 @@
                 tools:background="@color/md_teal_A700"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:glideImage="@{imageHit.webformatURL}"/>
+                app:glideImage="@{imageHit.previewURL}"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_type"

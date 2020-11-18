@@ -1,4 +1,4 @@
-package com.vincent.imagesearch.views
+package com.vincent.imagesearch.viewadapters
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

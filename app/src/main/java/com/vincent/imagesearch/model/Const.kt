@@ -17,4 +17,8 @@ object Const {
 
     const val VIEW_TYPE_SPAN_COUNT_ROW = 1
     const val VIEW_TYPE_SPAN_COUNT_GRID = 3
+
+    const val MAX_SEARCH_RECORD_NUMBER = 10
+
+    const val EMPTY_INPUT = "(Empty)"
 }
