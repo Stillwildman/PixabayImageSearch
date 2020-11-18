@@ -36,12 +36,6 @@ android {
         }
     }
 
-    kapt {
-        arguments {
-            arg('eventBusIndex', 'com.vincent.imagesearch.MyEventBusIndex')
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -96,8 +90,4 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.1.1'
-    kapt 'org.greenrobot:eventbus-annotation-processor:3.1.1'
 }

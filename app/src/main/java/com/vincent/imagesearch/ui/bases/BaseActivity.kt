@@ -60,7 +60,6 @@ abstract class BaseActivity<BindingView : ViewDataBinding> : AppCompatActivity()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        //menuInflater.inflate(R.menu.menu_grid_view, menu)
         MenuHelper.setMenuOptions(menu, getMenuOptions())
         return true
     }

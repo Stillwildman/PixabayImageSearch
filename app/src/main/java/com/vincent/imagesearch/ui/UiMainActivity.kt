@@ -47,11 +47,11 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
     }
 
     override fun init() {
-        initViewModel()
+        startObserving()
         initViews()
     }
 
-    private fun initViewModel() {
+    private fun startObserving() {
         imageViewModel.let {
             it.liveLoadingStatus.observe(this, { isLoading ->
                 setLoading(isLoading)
@@ -60,6 +60,10 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
                 Utility.toastLong(errorMessage)
             })
             it.observeSearchRecordListFlow()
+
+            it.liveSearchRecordList.observe(this, { searchRecordList: List<String> ->
+                setAutoCompleteAdapter(searchRecordList)
+            })
         }
     }
 
@@ -136,12 +140,13 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
         Log.i(TAG, "afterTextChanged: ${s?.toString()}")
     }
 
+    private fun setAutoCompleteAdapter(searchRecordList: List<String>) {
+        val arrayAdapter = ArrayAdapter(this, R.layout.inflate_search_record_text, searchRecordList)
+        bindingView.editInput.setAdapter(arrayAdapter)
+    }
+
     private fun showAutoCompleteView() {
-        bindingView.editInput.let {
-            val arrayAdapter = ArrayAdapter(this, R.layout.inflate_search_record_text, imageViewModel.searchRecordList)
-            it.setAdapter(arrayAdapter)
-            it.showDropDown()
-        }
+        bindingView.editInput.showDropDown()
     }
 
     private fun getImageListAdapter(): ImageListAdapter? {
