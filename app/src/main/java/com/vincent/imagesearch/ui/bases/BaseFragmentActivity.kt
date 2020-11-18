@@ -34,7 +34,7 @@ abstract class BaseFragmentActivity<BindingView : ViewDataBinding> : BaseActivit
         }
     }
 
-    private fun openDialogFragment(instance: DialogFragment, isLoadingDialog : Boolean) {
+    protected fun openDialogFragment(instance: DialogFragment, isLoadingDialog : Boolean) {
         fm.beginTransaction().let {
             if (isLoadingDialog) {
                 instance.isCancelable = false

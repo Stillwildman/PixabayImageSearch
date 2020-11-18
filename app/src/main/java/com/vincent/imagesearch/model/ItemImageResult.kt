@@ -1,8 +1,10 @@
 package com.vincent.imagesearch.model
 
+import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import com.vincent.imagesearch.AppController
 import com.vincent.imagesearch.R
+import kotlinx.android.parcel.Parcelize
 import kotlin.math.ceil
 
 /**
@@ -13,6 +15,7 @@ data class ItemImageResult(
     val totalHits: Int,
     val hits: List<Hit>
 ) {
+    @Parcelize
     data class Hit(
         val id: Int,
         val tags: String,
@@ -22,7 +25,7 @@ data class ItemImageResult(
         val largeImageURL: String,
         val likes: Int,
         val views: Int
-    ) {
+    ) : Parcelable {
         fun getImageTypeColor(): Int {
             val colorRes = when (type) {
                 Const.IMAGE_TYPE_PHOTO -> R.color.md_amber_800

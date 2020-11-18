@@ -11,18 +11,24 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.vincent.imagesearch.AppController
 import com.vincent.imagesearch.R
+import com.vincent.imagesearch.callbacks.OnImageClickCallback
 import com.vincent.imagesearch.databinding.ActivityMainBinding
 import com.vincent.imagesearch.model.Const
 import com.vincent.imagesearch.model.ItemImageResult
 import com.vincent.imagesearch.ui.adapters.ImageListAdapter
 import com.vincent.imagesearch.ui.bases.BaseFragmentActivity
+import com.vincent.imagesearch.ui.dialog.UiImageDialogFragment
 import com.vincent.imagesearch.utilities.MenuActions
 import com.vincent.imagesearch.utilities.SettingManager
 import com.vincent.imagesearch.utilities.Utility
 import com.vincent.imagesearch.viewmodel.ImagesViewModel
 import com.vincent.imagesearch.widgets.SearchInputWidget
 
-class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(), View.OnClickListener, TextWatcher, SearchInputWidget.SearchInputCallback {
+class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
+    View.OnClickListener,
+    TextWatcher,
+    SearchInputWidget.SearchInputCallback,
+    OnImageClickCallback {
 
     private val imageViewModel by lazy { ViewModelProvider(this).get(ImagesViewModel::class.java) }
 
@@ -65,7 +71,7 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(), View.OnClick
                 AppController.instance.applicationContext,
                 spanCount
             )
-            it.adapter = ImageListAdapter(it.layoutManager as GridLayoutManager)
+            it.adapter = ImageListAdapter(it.layoutManager as GridLayoutManager, this)
         }
 
         bindingView.buttonSearch.setOnClickListener(this)
@@ -104,9 +110,7 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(), View.OnClick
     private fun searchImages(keyWords: String) {
         isUiBlockedLoading = true
 
-        imageViewModel.getImagesSearching(keyWords).observe(
-            this,
-            { pagedList: PagedList<ItemImageResult.Hit>? ->
+        imageViewModel.getImagesSearching(keyWords).observe(this, { pagedList: PagedList<ItemImageResult.Hit>? ->
                 isUiBlockedLoading = false
                 updateImageList(pagedList)
             })
@@ -120,6 +124,7 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(), View.OnClick
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         Log.i(TAG, "onTextChanged: ${s?.toString()} start: $start before: $before count: $count")
+
         if (count == 0) {
             bindingView.editInput.postDelayed({
                 showAutoCompleteView()
@@ -175,5 +180,9 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(), View.OnClick
             setMenuOptions(intArrayOf(menuAction))
             getImageListAdapter()?.changeViewType()
         }
+    }
+
+    override fun onImageClick(item: ItemImageResult.Hit) {
+        openDialogFragment(UiImageDialogFragment.newInstance(item), false)
     }
 }

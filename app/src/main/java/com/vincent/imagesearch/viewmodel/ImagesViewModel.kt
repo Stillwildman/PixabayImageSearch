@@ -29,7 +29,7 @@ class ImagesViewModel : ViewModel(), OnLoadingCallback {
     val searchRecordList = mutableListOf<String>()
 
     fun getImagesSearching(keyWords: String): LiveData<PagedList<ItemImageResult.Hit>> {
-        insertSearchRecord(ItemSearchEntity(keyWords))
+        deleteDuplicatedKeyWordRecord(ItemSearchEntity(keyWords))
         return ImageDataRepo(keyWords, this).imageHitList
     }
 
@@ -92,23 +92,24 @@ class ImagesViewModel : ViewModel(), OnLoadingCallback {
             })
     }
 
-    private fun insertSearchRecord(item: ItemSearchEntity) {
-        val deletingDisposable = ImageSearchDatabase.getInstance().getSearchRecordDao().deleteDuplicatedKeyWordRecord(item.keyWords)
+    private fun deleteDuplicatedKeyWordRecord(item: ItemSearchEntity) {
+        CompositeDisposable().add(ImageSearchDatabase.getInstance().getSearchRecordDao().deleteDuplicatedKeyWordRecord(item.keyWords)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ deletedCount ->
                 Log.i(tag, "deleteDuplicatedKeyWordRecord! Success: ${deletedCount > 0}")
+                insertSearchRecord(item)
             }) { e ->
                 Log.e(tag, "deleteDuplicatedKeyWordRecord onError!!! ${e.message}")
-            }
+            })
+    }
 
-        val insertingDisposable = ImageSearchDatabase.getInstance().getSearchRecordDao().addRecord(item)
+    private fun insertSearchRecord(item: ItemSearchEntity) {
+        CompositeDisposable().add(ImageSearchDatabase.getInstance().getSearchRecordDao().addRecord(item)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.i(tag, "Search Record Added!!!")
-            }
-
-        CompositeDisposable().addAll(deletingDisposable, insertingDisposable)
+            })
     }
 }

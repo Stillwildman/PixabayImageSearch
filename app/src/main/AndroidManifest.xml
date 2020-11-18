@@ -19,7 +19,7 @@
 
         <activity
             android:name=".ui.UiMainActivity"
-            android:configChanges="keyboardHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:theme="@style/Theme.ImageSearch.NoActionBar">
             <intent-filter>

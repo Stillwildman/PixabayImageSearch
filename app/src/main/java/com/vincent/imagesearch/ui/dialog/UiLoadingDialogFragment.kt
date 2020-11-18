@@ -12,6 +12,8 @@ class UiLoadingDialogFragment : BaseDialogFragment<DialogLoadingCircleBinding>()
 
     override fun getLayoutId(): Int = R.layout.dialog_loading_circle
 
+    override fun canCanceledOnTouchOutside(): Boolean = false
+
     override fun setDialogWindowAttrs(window: Window) {
 
     }

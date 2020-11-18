@@ -3,6 +3,10 @@
 
     <data>
         <variable
+            name="onImageClick"
+            type="com.vincent.imagesearch.callbacks.OnImageClickCallback" />
+
+        <variable
             name="imageHit"
             type="com.vincent.imagesearch.model.ItemImageResult.Hit" />
     </data>
@@ -14,8 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_size_s"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="5dp"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        android:onClick="@{() -> onImageClick.onImageClick(imageHit)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,7 +36,7 @@
                 tools:background="@color/md_teal_A700"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:glideImage="@{imageHit.previewURL}"/>
+                app:glideImage="@{imageHit.webformatURL}"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_type"

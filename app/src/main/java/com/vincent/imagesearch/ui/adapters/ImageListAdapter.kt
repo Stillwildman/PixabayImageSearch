@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vincent.imagesearch.R
+import com.vincent.imagesearch.callbacks.OnImageClickCallback
 import com.vincent.imagesearch.databinding.InflateImageGridBinding
 import com.vincent.imagesearch.databinding.InflateImageRowBinding
 import com.vincent.imagesearch.model.Const
@@ -17,7 +18,7 @@ import com.vincent.imagesearch.model.ItemImageResult
 /**
  * Created by Vincent on 2020/11/17.
  */
-class ImageListAdapter(private val layoutManager: GridLayoutManager) :
+class ImageListAdapter(private val layoutManager: GridLayoutManager, private val imageClickCallback: OnImageClickCallback) :
     PagedListAdapter<ItemImageResult.Hit, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<ItemImageResult.Hit>() {
         override fun areItemsTheSame(oldItem: ItemImageResult.Hit, newItem: ItemImageResult.Hit): Boolean {
             return oldItem.id == newItem.id
@@ -69,9 +70,11 @@ class ImageListAdapter(private val layoutManager: GridLayoutManager) :
         when (holder) {
             is ImageRowViewHolder -> {
                 holder.bindingView.imageHit = getItem(position)
+                holder.bindingView.onImageClick = imageClickCallback
             }
             is ImageGridViewHolder -> {
                 holder.bindingView.imageHit = getItem(position)
+                holder.bindingView.onImageClick = imageClickCallback
             }
         }
     }

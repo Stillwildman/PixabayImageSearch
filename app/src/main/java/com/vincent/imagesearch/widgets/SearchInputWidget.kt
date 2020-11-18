@@ -64,6 +64,8 @@ internal class SearchInputWidget : AppCompatAutoCompleteTextView, OnKeyListener,
     }
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        AppController.instance.hideKeyboard(view)
+
         (parent.getItemAtPosition(position) as String).let {
             if (it == Const.EMPTY_INPUT) {
                 this.setText("")

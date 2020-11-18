@@ -21,4 +21,6 @@ object Const {
     const val MAX_SEARCH_RECORD_NUMBER = 10
 
     const val EMPTY_INPUT = "(Empty)"
+
+    const val BUNDLE_IMAGE_HIT = "ImageHit"
 }

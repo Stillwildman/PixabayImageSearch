@@ -20,6 +20,7 @@ abstract class BaseDialogFragment<BindingView : ViewDataBinding> : DialogFragmen
     protected val TAG = javaClass.simpleName
 
     protected abstract fun getLayoutId(): Int
+    protected abstract fun canCanceledOnTouchOutside(): Boolean
     protected abstract fun setDialogWindowAttrs(window: Window)
     protected abstract fun init()
 
@@ -36,6 +37,8 @@ abstract class BaseDialogFragment<BindingView : ViewDataBinding> : DialogFragmen
         val dialog = super.onCreateDialog(savedInstanceState)
 
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+        dialog.setCanceledOnTouchOutside(canCanceledOnTouchOutside())
 
         return dialog
     }

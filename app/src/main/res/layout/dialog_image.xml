@@ -3,10 +3,6 @@
 
     <data>
         <variable
-            name="onImageClick"
-            type="com.vincent.imagesearch.callbacks.OnImageClickCallback" />
-
-        <variable
             name="imageHit"
             type="com.vincent.imagesearch.model.ItemImageResult.Hit" />
     </data>
@@ -17,13 +13,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_size_s"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_margin="@dimen/padding_size_l"
         app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
-        android:onClick="@{() -> onImageClick.onImageClick(imageHit)}">
+        app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,12 +30,13 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:glideImage="@{imageHit.previewURL}"/>
+                app:glideImage="@{imageHit.largeImageURL}"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_size_xl"
                 android:layout_marginTop="@dimen/padding_size_l"
                 tools:text="Photo"
                 android:text="@{imageHit.type}"
@@ -51,7 +44,6 @@
                 android:textColor="@color/md_white_1000"
                 app:layout_constraintTop_toBottomOf="@+id/image_thumbnail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 tools:backgroundTint="@color/md_amber_800"
                 android:background="@drawable/background_type"
                 android:backgroundTint="@{imageHit.getImageTypeColor()}" />
@@ -61,16 +53,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_size_m"
-                android:layout_marginEnd="@dimen/padding_size_m"
+                android:layout_marginEnd="@dimen/padding_size_xl"
                 android:layout_marginTop="@dimen/padding_size_s"
-                android:maxLines="1"
-                android:ellipsize="end"
-                tools:text="PhotoooOOOOO"
+                tools:text="PhotoooOOO0000"
                 android:text="@{imageHit.tags}"
                 android:textSize="@dimen/font_text_size_xs"
                 android:textColor="@color/itemPrimaryColor"
-                app:layout_constraintTop_toBottomOf="@+id/text_type"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_type"
+                app:layout_constraintStart_toEndOf="@+id/text_type"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
