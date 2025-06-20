@@ -36,11 +36,11 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun getToolbar(): Toolbar? = bindingView.toolbar
+    override fun getToolbar(): Toolbar = bindingView.toolbar
 
-    override fun getLoadingView(): View? = bindingView.loadingCircle
+    override fun getLoadingView(): View = bindingView.loadingCircle
 
-    override fun getMenuOptions(): IntArray? {
+    override fun getMenuOptions(): IntArray {
         return intArrayOf(
             if (SettingManager.isViewInRowType()) MenuActions.ACTION_GRID_VIEW_TYPE else MenuActions.ACTION_ROW_VIEW_TYPE
         )
@@ -53,17 +53,17 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
 
     private fun startObserving() {
         imageViewModel.let {
-            it.liveLoadingStatus.observe(this, { isLoading ->
+            it.liveLoadingStatus.observe(this) { isLoading ->
                 setLoading(isLoading)
-            })
-            it.liveErrorMessage.observe(this, { errorMessage ->
+            }
+            it.liveErrorMessage.observe(this) { errorMessage ->
                 Utility.toastLong(errorMessage)
-            })
+            }
             it.observeSearchRecordListFlow()
 
-            it.liveSearchRecordList.observe(this, { searchRecordList: List<String> ->
+            it.liveSearchRecordList.observe(this) { searchRecordList: List<String> ->
                 setAutoCompleteAdapter(searchRecordList)
-            })
+            }
         }
     }
 
@@ -71,10 +71,7 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
         val spanCount = if (SettingManager.isViewInRowType()) Const.VIEW_TYPE_SPAN_COUNT_ROW else Const.VIEW_TYPE_SPAN_COUNT_GRID
 
         bindingView.includeContent.recyclerImages.let {
-            it.layoutManager = GridLayoutManager(
-                AppController.instance.applicationContext,
-                spanCount
-            )
+            it.layoutManager = GridLayoutManager(AppController.instance.applicationContext, spanCount)
             it.adapter = ImageListAdapter(it.layoutManager as GridLayoutManager, this)
         }
 
@@ -114,10 +111,10 @@ class UiMainActivity : BaseFragmentActivity<ActivityMainBinding>(),
     private fun searchImages(keyWords: String) {
         isUiBlockedLoading = true
 
-        imageViewModel.getImagesSearching(keyWords).observe(this, { pagedList: PagedList<ItemImageResult.Hit>? ->
-                isUiBlockedLoading = false
-                updateImageList(pagedList)
-            })
+        imageViewModel.getImagesSearching(keyWords).observe(this) { pagedList: PagedList<ItemImageResult.Hit>? ->
+            isUiBlockedLoading = false
+            updateImageList(pagedList)
+        }
     }
 
     private fun updateImageList(pagedList: PagedList<ItemImageResult.Hit>?) {

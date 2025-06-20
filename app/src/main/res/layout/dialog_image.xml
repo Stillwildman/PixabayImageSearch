@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_size_l">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/image_thumbnail"
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/image_large"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 tools:background="@color/md_teal_A700"
@@ -42,7 +42,7 @@
                 android:text="@{imageHit.type}"
                 android:textSize="@dimen/font_text_size_xs"
                 android:textColor="@color/md_white_1000"
-                app:layout_constraintTop_toBottomOf="@+id/image_thumbnail"
+                app:layout_constraintTop_toBottomOf="@+id/image_large"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:backgroundTint="@color/md_amber_800"
                 android:background="@drawable/background_type"

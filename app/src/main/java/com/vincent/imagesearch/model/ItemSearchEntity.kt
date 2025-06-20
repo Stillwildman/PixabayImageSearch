@@ -23,8 +23,8 @@ class ItemSearchEntity {
     var id: Int = 0
 
     @ColumnInfo(name = DBParams.COLUMN_KEY_WORDS)
-    var keyWords: String
-    set(value) {
+    var keyWords: String = ""
+        set(value) {
         field = if (value.isEmpty()) Const.EMPTY_INPUT else URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
     }
     get() = URLDecoder.decode(field, StandardCharsets.UTF_8.toString())

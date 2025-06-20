@@ -1,5 +1,6 @@
 package com.vincent.imagesearch.ui.dialog
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import com.vincent.imagesearch.R
@@ -34,7 +35,13 @@ class UiImageDialogFragment private constructor() : BaseDialogFragment<DialogIma
     }
 
     private fun getBundleAndSetItem() {
-        arguments?.getParcelable<ItemImageResult.Hit>(Const.BUNDLE_IMAGE_HIT)?.let {
+        val imageHit = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable(Const.BUNDLE_IMAGE_HIT, ItemImageResult.Hit::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            arguments?.getParcelable(Const.BUNDLE_IMAGE_HIT)
+        }
+        imageHit?.let {
             bindingView.imageHit = it
         }
     }

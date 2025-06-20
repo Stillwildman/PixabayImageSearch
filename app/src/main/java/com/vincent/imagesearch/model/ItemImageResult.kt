@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import com.vincent.imagesearch.AppController
 import com.vincent.imagesearch.R
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlin.math.ceil
 
 /**
